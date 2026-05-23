@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ateliê Terra — Produtos Artesanais</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --moss-50:#f2f5ee;--moss-100:#deebd4;--moss-300:#98bf83;
+  --moss-500:#5a8e45;--moss-600:#477236;--moss-700:#3a5c2b;--moss-800:#2c4620;--moss-900:#1e3016;
+  --stone-50:#faf8f5;--stone-100:#f2ede6;--stone-200:#e4dbd0;
+  --stone-300:#cfc3b4;--stone-400:#b5a08e;--stone-500:#9a8070;
+  --stone-600:#7d6558;--stone-700:#635048;--stone-800:#4a3c38;--stone-900:#302824;
+  --sand-100:#f7f1e8;--sand-200:#ede3d0;
+}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--stone-50);color:var(--stone-800);overflow-x:hidden}
+
+/* ══════════════════════════════════════
+   NAVBAR
+══════════════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--stone-200);
+  transition:box-shadow .3s;
+}
+nav.scrolled{box-shadow:0 4px 24px rgba(60,48,40,.08)}
+.nav-inner{
+  max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:1fr auto 1fr;
+  align-items:center;padding:0 24px;height:64px;gap:16px;
+}
+.nav-logo{
+  font-size:20px;font-weight:700;color:var(--moss-700);
+  display:flex;align-items:center;gap:8px;text-decoration:none;
+  letter-spacing:-.3px;
+}
+.logo-mark{
+  width:28px;height:28px;border-radius:8px;
+  background:var(--moss-700);display:flex;align-items:center;justify-content:center;
+  font-size:14px;
+}
+.nav-links{
+  display:flex;align-items:center;gap:32px;list-style:none;
+}
+.nav-links a{
+  font-size:14px;font-weight:500;color:var(--stone-600);
+  text-decoration:none;position:relative;padding:4px 0;
+  transition:color .2s;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-2px;left:0;right:0;
+  height:2px;background:var(--moss-600);border-radius:2px;
+  transform:scaleX(0);transition:transform .25s;
+}
+.nav-links a:hover{color:var(--moss-700)}
+.nav-links a:hover::after{transform:scaleX(1)}
+.nav-links a.active{color:var(--moss-700)}
+.nav-links a.active::after{transform:scaleX(1)}
+.nav-right{display:flex;align-items:center;justify-content:flex-end;gap:12px}
+.cart-btn{
+  position:relative;display:flex;align-items:center;gap:8px;
+  background:var(--moss-700);color:white;border:none;border-radius:10px;
+  padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer;
+  transition:background .2s,transform .15s;
+}
+.cart-btn:hover{background:var(--moss-800);transform:translateY(-1px)}
+.cart-badge{
+  background:white;color:var(--moss-700);
+  font-size:10px;font-weight:700;
+  width:18px;height:18px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;color:var(--stone-700)}
+@media(max-width:768px){
+  .nav-links{display:none;position:fixed;top:64px;left:0;right:0;background:white;flex-direction:column;padding:20px;border-bottom:1px solid var(--stone-200);gap:16px;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+  .nav-links.open{display:flex}
+  .hamburger{display:block}
+  .nav-inner{grid-template-columns:1fr auto auto}
+}
+
+/* ══════════════════════════════════════
+   HERO
+══════════════════════════════════════ */
+.hero{
+  position:relative;margin-top:64px;height:90vh;min-height:580px;max-height:860px;
+  display:flex;align-items:center;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(135deg,rgba(30,48,22,.82) 0%,rgba(58,92,43,.55) 50%,rgba(90,142,69,.3) 100%),
+    url('https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=1600&q=80&fit=crop') center/cover no-repeat;
+  transform:scale(1.04);animation:heroZoom 12s ease-in-out infinite alternate;
+}
+@keyframes heroZoom{from{transform:scale(1.04)}to{transform:scale(1)}}
+.hero-content{
+  position:relative;z-index:2;max-width:1200px;margin:0 auto;
+  padding:0 24px;width:100%;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.15);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.25);border-radius:50px;
+  color:rgba(255,255,255,.9);font-size:13px;font-weight:500;
+  padding:6px 14px;margin-bottom:20px;
+  animation:fadeUp .7s .1s both;
+}
+.hero-eyebrow span{width:6px;height:6px;border-radius:50%;background:var(--moss-300)}
+.hero h1{
+  font-size:clamp(36px,6vw,72px);font-weight:800;
+  color:white;line-height:1.08;letter-spacing:-.02em;
+  max-width:700px;margin-bottom:18px;
+  animation:fadeUp .7s .2s both;
+}
+.hero h1 em{color:var(--moss-300);font-style:normal}
+.hero p{
+  font-size:clamp(15px,2vw,18px);color:rgba(255,255,255,.8);
+  max-width:480px;line-height:1.65;margin-bottom:32px;
+  animation:fadeUp .7s .3s both;
+}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;animation:fadeUp .7s .4s both}
+.btn-primary{
+  background:white;color:var(--moss-800);
+  border:none;border-radius:12px;padding:15px 28px;
+  font-size:15px;font-weight:700;cursor:pointer;
+  display:flex;align-items:center;gap:8px;
+  transition:transform .2s,box-shadow .2s;
+  box-shadow:0 4px 20px rgba(0,0,0,.15);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.2)}
+.btn-outline{
+  background:rgba(255,255,255,.12);backdrop-filter:blur(8px);
+  color:white;border:1.5px solid rgba(255,255,255,.4);
+  border-radius:12px;padding:15px 28px;
+  font-size:15px;font-weight:600;cursor:pointer;
+  transition:background .2s,border-color .2s;
+}
+.btn-outline:hover{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.7)}
+.hero-scroll{
+  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  color:rgba(255,255,255,.6);font-size:11px;font-weight:500;letter-spacing:.06em;
+  animation:bounce 2s infinite;
+}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+.hero-badge{
+  position:absolute;right:5%;bottom:20%;
+  background:rgba(255,255,255,.15);backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.3);border-radius:16px;
+  padding:14px 18px;color:white;text-align:center;
+  animation:fadeUp .7s .6s both;
+}
+.hero-badge strong{display:block;font-size:28px;font-weight:800;color:var(--moss-300)}
+.hero-badge span{font-size:12px;opacity:.8}
+@media(max-width:600px){.hero-badge{display:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══════════════════════════════════════
+   SECTIONS COMMON
+══════════════════════════════════════ */
+section{padding:80px 24px}
+.section-inner{max-width:1200px;margin:0 auto}
+.section-eyebrow{
+  font-size:12px;font-weight:700;color:var(--moss-600);
+  text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;
+}
+.section-title{
+  font-size:clamp(26px,4vw,40px);font-weight:800;
+  color:var(--stone-900);line-height:1.15;letter-spacing:-.02em;
+  margin-bottom:8px;
+}
+.section-title em{color:var(--moss-700);font-style:normal}
+.section-sub{font-size:15px;color:var(--stone-500);line-height:1.6;max-width:500px}
+
+/* ══════════════════════════════════════
+   FEATURED PRODUCTS
+══════════════════════════════════════ */
+#produtos{background:white}
+.featured-header{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  margin-bottom:36px;gap:16px;flex-wrap:wrap;
+}
+.products-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:16px;margin-bottom:40px;
+}
+@media(max-width:1100px){.products-grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:860px){.products-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.products-grid{grid-template-columns:repeat(2,1fr);gap:12px}}
+
+/* Card */
+.pcard{
+  background:white;border:1px solid var(--stone-200);border-radius:14px;
+  overflow:hidden;display:flex;flex-direction:column;
+  transition:transform .25s,box-shadow .25s;cursor:pointer;
+  position:relative;
+}
+.pcard:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(60,48,40,.1)}
+.pcard-img{
+  position:relative;padding-top:90%;
+  background:var(--sand-100);overflow:hidden;
+}
+.pcard-emoji{
+  position:absolute;inset:0;display:flex;align-items:center;
+  justify-content:center;font-size:52px;
+  transition:transform .4s ease;
+}
+.pcard:hover .pcard-emoji{transform:scale(1.1)}
+.pcard-badge{
+  position:absolute;top:8px;left:8px;
+  font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;z-index:1;
+}
+.bn{background:var(--moss-100);color:var(--moss-700)}
+.bo{background:#fef3c7;color:#92400e}
+.bl{background:#fee2e2;color:#991b1b}
+.pcard-body{padding:12px;display:flex;flex-direction:column;flex:1}
+.pcard-cat{font-size:10px;font-weight:700;color:var(--stone-400);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+.pcard-name{font-size:13px;font-weight:600;color:var(--stone-800);line-height:1.3;margin-bottom:6px;flex:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pcard-footer{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:auto}
+.pcard-price{font-size:15px;font-weight:700;color:var(--moss-700)}
+.pcard-price-old{font-size:10px;color:var(--stone-400);text-decoration:line-through}
+.add-btn{
+  min-width:36px;min-height:36px;border-radius:9px;
+  background:var(--moss-700);color:white;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s,transform .15s;flex-shrink:0;
+}
+.add-btn:hover{background:var(--moss-800)}
+.add-btn:active{transform:scale(.92)}
+.add-btn.added{background:#059669}
+
+.see-more-wrap{text-align:center}
+.btn-see-more{
+  display:inline-flex;align-items:center;gap:10px;
+  background:transparent;border:2px solid var(--moss-700);color:var(--moss-700);
+  border-radius:12px;padding:13px 32px;font-size:15px;font-weight:700;
+  cursor:pointer;transition:all .2s;
+}
+.btn-see-more:hover{background:var(--moss-700);color:white}
+
+/* ══════════════════════════════════════
+   NEWSLETTER
+══════════════════════════════════════ */
+#newsletter{background:var(--stone-50)}
+.newsletter-inner{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:60px;align-items:center;max-width:1200px;margin:0 auto;
+}
+@media(max-width:720px){.newsletter-inner{grid-template-columns:1fr;gap:36px}}
+.newsletter-left{}
+.newsletter-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--moss-100);color:var(--moss-700);
+  font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  padding:5px 12px;border-radius:20px;margin-bottom:14px;
+}
+.newsletter-title{
+  font-size:clamp(24px,3.5vw,36px);font-weight:800;
+  color:var(--stone-900);line-height:1.2;letter-spacing:-.02em;margin-bottom:12px;
+}
+.newsletter-title em{color:var(--moss-700);font-style:normal}
+.newsletter-sub{font-size:15px;color:var(--stone-500);line-height:1.65;margin-bottom:24px}
+.newsletter-perks{display:flex;flex-direction:column;gap:8px;margin-bottom:28px}
+.perk{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--stone-600)}
+.perk-dot{width:22px;height:22px;border-radius:50%;background:var(--moss-100);color:var(--moss-600);font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.email-form{display:flex;gap:10px;flex-wrap:wrap}
+.email-input{
+  flex:1;min-width:200px;
+  border:1.5px solid var(--stone-200);border-radius:10px;
+  padding:13px 16px;font-size:14px;color:var(--stone-800);
+  background:white;outline:none;transition:border-color .2s,box-shadow .2s;
+}
+.email-input:focus{border-color:var(--moss-500);box-shadow:0 0 0 3px var(--moss-50)}
+.email-input.error{border-color:#dc2626}
+.email-input::placeholder{color:var(--stone-300)}
+.btn-subscribe{
+  background:var(--moss-700);color:white;border:none;
+  border-radius:10px;padding:13px 22px;font-size:14px;font-weight:700;
+  cursor:pointer;white-space:nowrap;transition:background .2s,transform .15s;
+}
+.btn-subscribe:hover{background:var(--moss-800);transform:translateY(-1px)}
+.subscribe-ok{display:none;align-items:center;gap:8px;color:var(--moss-700);font-size:14px;font-weight:600;margin-top:8px}
+/* Illustration */
+.newsletter-right{position:relative;display:flex;justify-content:center;align-items:center}
+.illus-wrap{
+  width:100%;max-width:420px;aspect-ratio:1;
+  border-radius:24px;overflow:hidden;
+  background:linear-gradient(135deg,var(--moss-800) 0%,var(--moss-600) 100%);
+  position:relative;display:flex;align-items:center;justify-content:center;
+}
+.illus-wrap::before{
+  content:'';position:absolute;top:-40px;right:-40px;
+  width:200px;height:200px;border-radius:50%;
+  background:rgba(255,255,255,.07);
+}
+.illus-wrap::after{
+  content:'';position:absolute;bottom:-30px;left:-20px;
+  width:160px;height:160px;border-radius:50%;
+  background:rgba(255,255,255,.05);
+}
+.illus-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:12px;
+  padding:32px;position:relative;z-index:1;width:100%;
+}
+.illus-card{
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
+  border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:6px;
+  backdrop-filter:blur(6px);
+}
+.illus-emoji{font-size:28px}
+.illus-name{font-size:11px;font-weight:600;color:rgba(255,255,255,.9);line-height:1.3}
+.illus-price{font-size:13px;font-weight:700;color:var(--moss-300)}
+.illus-badge{
+  position:absolute;top:-10px;right:-10px;
+  background:white;color:var(--moss-800);
+  border-radius:12px;padding:10px 14px;
+  font-size:13px;font-weight:800;
+  box-shadow:0 4px 20px rgba(0,0,0,.15);
+  z-index:2;
+}
+.illus-badge span{display:block;font-size:10px;font-weight:500;color:var(--stone-500)}
+
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+footer{
+  background:var(--stone-900);color:white;
+  padding:56px 24px 0;
+}
+.footer-inner{
+  max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:40px;padding-bottom:48px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+@media(max-width:860px){.footer-inner{grid-template-columns:1fr 1fr;gap:32px}}
+@media(max-width:500px){.footer-inner{grid-template-columns:1fr;gap:28px}}
+.footer-brand h3{
+  font-size:20px;font-weight:700;color:white;
+  display:flex;align-items:center;gap:8px;margin-bottom:12px;
+}
+.footer-brand p{font-size:13px;color:rgba(255,255,255,.5);line-height:1.7;max-width:260px}
+.social-row{display:flex;gap:10px;margin-top:20px}
+.social-btn{
+  position:relative;
+  width:38px;height:38px;border-radius:10px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:background .2s,transform .15s;
+  color:white;text-decoration:none;
+}
+.social-btn:hover{background:rgba(255,255,255,.18);transform:translateY(-2px)}
+.social-btn.whatsapp:hover{background:#25D366}
+.social-btn.instagram:hover{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)}
+.social-btn.twitter:hover{background:#000}
+.wa-tooltip{
+  position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);
+  background:var(--stone-900);border:1px solid rgba(255,255,255,.15);
+  color:white;font-size:11px;font-weight:500;white-space:nowrap;
+  padding:6px 10px;border-radius:8px;pointer-events:none;
+  opacity:0;transition:opacity .2s,transform .2s;transform:translateX(-50%) translateY(4px);
+}
+.wa-tooltip::after{
+  content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:5px solid transparent;border-top-color:var(--stone-900);
+}
+.social-btn.whatsapp:hover .wa-tooltip{opacity:1;transform:translateX(-50%) translateY(0)}
+.footer-col h4{
+  font-size:13px;font-weight:700;color:white;
+  text-transform:uppercase;letter-spacing:.07em;
+  margin-bottom:16px;
+}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-col ul a{
+  font-size:13px;color:rgba(255,255,255,.5);
+  text-decoration:none;transition:color .2s;
+}
+.footer-col ul a:hover{color:var(--moss-300)}
+.footer-bottom{
+  max-width:1200px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:12px;
+  padding:20px 0;
+  font-size:12px;color:rgba(255,255,255,.3);
+}
+.footer-bottom a{color:rgba(255,255,255,.4);text-decoration:none}
+.footer-bottom a:hover{color:rgba(255,255,255,.7)}
+
+/* ══════════════════════════════════════
+   TOAST
+══════════════════════════════════════ */
+.toast{
+  position:fixed;bottom:28px;left:50%;
+  transform:translateX(-50%) translateY(80px);
+  background:var(--stone-900);color:white;
+  font-size:13px;font-weight:500;
+  padding:11px 20px;border-radius:50px;
+  z-index:300;transition:transform .35s cubic-bezier(.4,0,.2,1),opacity .35s;
+  opacity:0;white-space:nowrap;
+  display:flex;align-items:center;gap:8px;
+}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* Scroll reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s,transform .65s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══ -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="logo-mark">🌿</div>
+      Ateliê Terra
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#" class="active">Home</a></li>
+      <li><a href="#produtos">Produtos</a></li>
+      <li><a href="#destaque">Destaques</a></li>
+      <li><a href="#newsletter">Promoções</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="cart-btn" id="cartBtn" aria-label="Carrinho de compras">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        Carrinho
+        <span class="cart-badge" id="cartBadge">0</span>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span></span> Nova coleção disponível agora
+    </div>
+    <h1>Artesanato que<br><em>conta histórias</em></h1>
+    <p>Peças únicas feitas à mão com materiais naturais. Do campo direto para sua casa — com alma, textura e muito cuidado.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="document.getElementById('produtos').scrollIntoView({behavior:'smooth'})">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        Comprar Agora
+      </button>
+      <button class="btn-outline" onclick="document.getElementById('destaque').scrollIntoView({behavior:'smooth'})">
+        Ver Destaques
+      </button>
+    </div>
+  </div>
+  <div class="hero-badge">
+    <strong>+1.200</strong>
+    <span>peças vendidas</span>
+  </div>
+  <div class="hero-scroll">
+    <span>ROLAR</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+</section>
+
+<!-- ══ FEATURED PRODUCTS ══ -->
+<section id="destaque" style="background:white;padding:80px 24px">
+  <div class="section-inner">
+    <div class="featured-header reveal">
+      <div>
+        <p class="section-eyebrow">✦ Curadoria especial</p>
+        <h2 class="section-title">Produtos em <em>Destaque</em></h2>
+        <p class="section-sub">Selecionados com carinho — os favoritos da nossa comunidade esta semana.</p>
+      </div>
+    </div>
+    <div class="products-grid reveal" id="productsGrid"></div>
+    <div class="see-more-wrap reveal">
+      <button class="btn-see-more" id="seeMoreBtn" onclick="toggleProducts()">
+        Ver todos os produtos
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRODUCTS FULL ══ -->
+<section id="produtos" style="background:var(--stone-50);padding:80px 24px;display:none" id="allProductsSection">
+  <div class="section-inner">
+    <div class="featured-header reveal">
+      <div>
+        <p class="section-eyebrow">✦ Catálogo completo</p>
+        <h2 class="section-title">Todos os <em>Produtos</em></h2>
+      </div>
+    </div>
+    <div class="products-grid reveal" id="allProductsGrid"></div>
+  </div>
+</section>
+
+<!-- ══ NEWSLETTER ══ -->
+<section id="newsletter">
+  <div class="newsletter-inner">
+    <div class="newsletter-left reveal">
+      <div class="newsletter-tag">📬 Newsletter exclusiva</div>
+      <h2 class="newsletter-title">Fique por dentro das<br>nossas <em>promoções</em></h2>
+      <p class="newsletter-sub">Receba em primeira mão lançamentos, ofertas exclusivas e dicas de decoração artesanal direto no seu e-mail.</p>
+      <div class="newsletter-perks">
+        <div class="perk"><div class="perk-dot">🎁</div> Desconto de boas-vindas de 10% na primeira compra</div>
+        <div class="perk"><div class="perk-dot">⚡</div> Acesso antecipado a novos produtos</div>
+        <div class="perk"><div class="perk-dot">🔕</div> Sem spam — cancele quando quiser</div>
+      </div>
+      <div class="email-form">
+        <input class="email-input" id="emailInput" type="email" placeholder="seu@email.com.br">
+        <button class="btn-subscribe" onclick="subscribe()">Inscrever-se →</button>
+      </div>
+      <div class="subscribe-ok" id="subscribeOk">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+        Inscrição confirmada! Fique de olho no seu e-mail 🌿
+      </div>
+    </div>
+    <div class="newsletter-right reveal">
+      <div class="illus-wrap">
+        <div class="illus-grid">
+          <div class="illus-card"><div class="illus-emoji">🏺</div><div class="illus-name">Vaso Rústico</div><div class="illus-price">R$ 74,90</div></div>
+          <div class="illus-card"><div class="illus-emoji">🧶</div><div class="illus-name">Tapete Boho</div><div class="illus-price">R$ 129,00</div></div>
+          <div class="illus-card"><div class="illus-emoji">💜</div><div class="illus-name">Vela Lavanda</div><div class="illus-price">R$ 42,00</div></div>
+          <div class="illus-card"><div class="illus-emoji">🧼</div><div class="illus-name">Kit Spa</div><div class="illus-price">R$ 62,00</div></div>
+        </div>
+        <div class="illus-badge">
+          10% OFF
+          <span>cupom: TERRA10</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer id="contato">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3><span style="font-size:20px">🌿</span> Ateliê Terra</h3>
+      <p>Produtos artesanais feitos com amor, intenção e materiais naturais. Cada peça carrega a história de quem a fez.</p>
+      <div class="social-row">
+        <a href="#" class="social-btn instagram" aria-label="Instagram" title="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="#" class="social-btn whatsapp" aria-label="WhatsApp — Suporte" title="WhatsApp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          <div class="wa-tooltip">💬 Suporte via WhatsApp</div>
+        </a>
+        <a href="#" class="social-btn twitter" aria-label="X (Twitter)" title="X (Twitter)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Navegação</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#produtos">Catálogo</a></li>
+        <li><a href="#destaque">Destaques</a></li>
+        <li><a href="#newsletter">Promoções</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Informações</h4>
+      <ul>
+        <li><a href="#">Sobre nós</a></li>
+        <li><a href="#">Como funciona</a></li>
+        <li><a href="#">Trocas e devoluções</a></li>
+        <li><a href="#">Rastrear pedido</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contato</h4>
+      <ul>
+        <li><a href="#">📧 ola@atelieterra.com</a></li>
+        <li><a href="#">📱 (47) 99999-0000</a></li>
+        <li><a href="#">📍 Itajaí, SC</a></li>
+        <li><a href="#">⏰ Seg–Sex, 9h–18h</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Ateliê Terra. Todos os direitos reservados.</span>
+    <div style="display:flex;gap:20px">
+      <a href="#">Privacidade</a>
+      <a href="#">Termos de uso</a>
+      <a href="#">Cookies</a>
+    </div>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+const fmt = n => n.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+let cartCount = 0;
+let showingAll = false;
+
+const products = [
+  {id:1,name:'Vaso Rústico Esmaltado',cat:'Cerâmica',price:74.9,original:89,emoji:'🏺',badge:'Oferta'},
+  {id:2,name:'Tigela de Argila Branca',cat:'Cerâmica',price:49.9,emoji:'🥣'},
+  {id:3,name:'Xícara Minimalista',cat:'Cerâmica',price:65,original:80,emoji:'☕',badge:'Oferta'},
+  {id:4,name:'Prato Rústico Fundo',cat:'Cerâmica',price:58,emoji:'🍽️',badge:'Novo'},
+  {id:5,name:'Tapete Boho Bege',cat:'Macramê',price:129,emoji:'🧶',badge:'Novo'},
+  {id:6,name:'Porta-Vaso Suspenso',cat:'Macramê',price:89,original:110,emoji:'🪴',badge:'Oferta'},
+  {id:7,name:'Mandala de Parede',cat:'Macramê',price:149,emoji:'🌀'},
+  {id:8,name:'Vela de Soja — Lavanda',cat:'Velas',price:42,emoji:'💜',badge:'Novo'},
+  {id:9,name:'Trio Votivas Amadeiradas',cat:'Velas',price:55,original:65,emoji:'🔥',badge:'Oferta'},
+  {id:10,name:'Vela Terapêutica Eucalipto',cat:'Velas',price:48,emoji:'🌿'},
+  {id:11,name:'Tábua de Servir Rústica',cat:'Madeira',price:95,emoji:'🪵',badge:'Novo'},
+  {id:12,name:'Porta-Temperos de Pinus',cat:'Madeira',price:138,emoji:'🧂'},
+  {id:13,name:'Sabonete de Argila Rosa',cat:'Sabonetes',price:22,emoji:'🌸',badge:'Novo'},
+  {id:14,name:'Kit Spa 3 Sabonetes',cat:'Sabonetes',price:62,original:72,emoji:'🧼',badge:'Oferta'},
+  {id:15,name:'Jarro de Boca Larga',cat:'Cerâmica',price:92,emoji:'🫙'},
+  {id:16,name:'Porta-Retrato Boho',cat:'Madeira',price:52,emoji:'🖼️'},
+  {id:17,name:'Fruteira Trançada',cat:'Madeira',price:78,original:95,emoji:'🧺',badge:'Oferta'},
+  {id:18,name:'Sabonete de Carvão',cat:'Sabonetes',price:28,emoji:'🖤'},
+  {id:19,name:'Barra de Aveia e Mel',cat:'Sabonetes',price:24,emoji:'🍯'},
+  {id:20,name:'Porta-Chaves Decorativo',cat:'Macramê',price:62,emoji:'🔑'},
+];
+
+function cardHTML(p, gridId){
+  const badge = p.badge ? `<span class="pcard-badge ${p.badge==='Novo'?'bn':p.badge==='Oferta'?'bo':'bl'}">${p.badge}</span>` : '';
+  const oldP = p.original ? `<div class="pcard-price-old">${fmt(p.original)}</div>` : '';
+  return `<article class="pcard" aria-label="${p.name}">
+    <div class="pcard-img">
+      <div class="pcard-emoji">${p.emoji}</div>
+      ${badge}
+    </div>
+    <div class="pcard-body">
+      <div class="pcard-cat">${p.cat}</div>
+      <div class="pcard-name">${p.name}</div>
+      <div class="pcard-footer">
+        <div>${oldP}<div class="pcard-price">${fmt(p.price)}</div></div>
+        <button class="add-btn" data-id="${p.id}" aria-label="Adicionar ${p.name} ao carrinho" onclick="addCart(this,'${p.name}')">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        </button>
+      </div>
+    </div>
+  </article>`;
+}
+
+function renderFeatured(){
+  const featured = products.slice(0,10);
+  document.getElementById('productsGrid').innerHTML = featured.map(p=>cardHTML(p,'productsGrid')).join('');
+}
+function renderAll(){
+  document.getElementById('allProductsGrid').innerHTML = products.map(p=>cardHTML(p,'allProductsGrid')).join('');
+}
+
+function toggleProducts(){
+  showingAll = !showingAll;
+  const sec = document.getElementById('allProductsSection') || document.querySelector('#produtos');
+  const btn = document.getElementById('seeMoreBtn');
+  // toggle the all-products section visibility
+  const allSec = document.getElementById('all-sec');
+  if(showingAll){
+    allSec.style.display='block';
+    btn.innerHTML='Ver menos <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="18 15 12 9 6 15"/></svg>';
+    setTimeout(()=>allSec.scrollIntoView({behavior:'smooth'}),80);
+  } else {
+    allSec.style.display='none';
+    btn.innerHTML='Ver todos os produtos <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>';
+  }
+}
+
+function addCart(btn, name){
+  btn.classList.add('added');
+  btn.innerHTML=`<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+  cartCount++;
+  document.getElementById('cartBadge').textContent = cartCount;
+  showToast(`${name} adicionado ao carrinho ✓`);
+  setTimeout(()=>{
+    btn.classList.remove('added');
+    btn.innerHTML=`<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>`;
+  },2000);
+}
+
+let toastT;
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.innerHTML=`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> ${msg}`;
+  t.classList.add('show');
+  clearTimeout(toastT);
+  toastT=setTimeout(()=>t.classList.remove('show'),2600);
+}
+
+function subscribe(){
+  const el = document.getElementById('emailInput');
+  const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value);
+  if(!ok){ el.classList.add('error'); el.focus(); return; }
+  el.classList.remove('error');
+  el.parentElement.style.display='none';
+  document.getElementById('subscribeOk').style.display='flex';
+}
+
+// Navbar scroll
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY>30);
+});
+
+// Hamburger
+document.getElementById('hamburger').addEventListener('click',()=>{
+  document.getElementById('navLinks').classList.toggle('open');
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver(els=>{
+  els.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); }});
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// Init
+renderFeatured();
+renderAll();
+
+// Inject all-products section after featured
+const allSec = document.createElement('section');
+allSec.id='all-sec';
+allSec.style.cssText='background:var(--stone-50);padding:60px 24px;display:none';
+allSec.innerHTML=`<div class="section-inner"><div class="featured-header"><div><p class="section-eyebrow">✦ Catálogo completo</p><h2 class="section-title">Todos os <em>Produtos</em></h2></div></div><div class="products-grid" id="allGrid"></div></div>`;
+document.getElementById('destaque').after(allSec);
+document.getElementById('allGrid').innerHTML = products.map(p=>cardHTML(p,'allGrid')).join('');
+
+// Fix toggleProducts to use allSec
+window.toggleProducts = function(){
+  showingAll = !showingAll;
+  const btn = document.getElementById('seeMoreBtn');
+  if(showingAll){
+    allSec.style.display='block';
+    btn.innerHTML='Ver menos <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="18 15 12 9 6 15"/></svg>';
+    setTimeout(()=>allSec.scrollIntoView({behavior:'smooth'}),80);
+  } else {
+    allSec.style.display='none';
+    btn.innerHTML='Ver todos os produtos <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>';
+    document.getElementById('destaque').scrollIntoView({behavior:'smooth'});
+  }
+};
+</script>
+</body>
+</html>

@@ -2,69 +2,39 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import Features from "@/components/Features";
 import { saveCheckoutCart } from "@/lib/cart-storage";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import Hero from "@/components/Hero";
-import { filterProducts, groupProducts } from "@/lib/catalog-utils";
 import { products } from "@/lib/products";
 import type { AddButtonState, CartItem, CartState } from "@/lib/types";
 
-const SEARCH_DEBOUNCE_MS = 280;
-const INITIAL_LOAD_MS = 1000;
+import Navbar from "@/components/Navbar";
+import LandingHero from "@/components/LandingHero";
+import FeaturedProducts from "@/components/FeaturedProducts";
+import AllProducts from "@/components/AllProducts";
+import NewsletterSection from "@/components/NewsletterSection";
+import SiteFooter from "@/components/SiteFooter";
+import Features from "@/components/Features";
+import Footer from "@/components/Footer";
+
 const ADD_ANIMATION_MS = 700;
 const ADDED_RESET_MS = 2000;
 const TOAST_DURATION_MS = 2500;
 
 export default function CatalogApp() {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(true);
-  const [activeCategory, setActiveCategory] = useState("Todos");
-  const [searchInput, setSearchInput] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
   const [cart, setCart] = useState<CartState>({});
-  const [buttonStates, setButtonStates] = useState<Record<number, AddButtonState>>(
-    {},
-  );
+  const [buttonStates, setButtonStates] = useState<
+    Record<number, AddButtonState>
+  >({});
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [badgePop, setBadgePop] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastVisible, setToastVisible] = useState(false);
+  const [showAllProducts, setShowAllProducts] = useState(false);
 
   const addingRef = useRef<Set<number>>(new Set());
   const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const buttonResetTimers = useRef<Map<number, ReturnType<typeof setTimeout>>>(
     new Map(),
-  );
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), INITIAL_LOAD_MS);
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setSearchQuery(searchInput.trim().toLowerCase());
-    }, SEARCH_DEBOUNCE_MS);
-    return () => clearTimeout(timer);
-  }, [searchInput]);
-
-  useEffect(() => {
-    return () => {
-      if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
-      buttonResetTimers.current.forEach((t) => clearTimeout(t));
-    };
-  }, []);
-
-  const filtered = useMemo(
-    () => filterProducts(activeCategory, searchQuery),
-    [activeCategory, searchQuery],
-  );
-
-  const groups = useMemo(
-    () => groupProducts(filtered, activeCategory, searchQuery),
-    [filtered, activeCategory, searchQuery],
   );
 
   const cartItems = useMemo(() => Object.values(cart), [cart]);
@@ -152,11 +122,6 @@ export default function CatalogApp() {
     [updateCartBadge],
   );
 
-  const handleSearchClear = () => {
-    setSearchInput("");
-    setSearchQuery("");
-  };
-
   const handleCheckout = () => {
     if (cartItems.length === 0) return;
     saveCheckoutCart(cartItems, cartValue);
@@ -164,26 +129,61 @@ export default function CatalogApp() {
     router.push("/checkout");
   };
 
+  const featuredProducts = products.slice(0, 10);
+  const allProducts = products;
+
+  useEffect(() => {
+    const reveals = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 },
+    );
+    reveals.forEach((el) => observer.observe(el));
+
+    const navbar = document.getElementById("navbar");
+    const handleScroll = () => {
+      if (navbar) {
+        navbar.classList.toggle("scrolled", window.scrollY > 30);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <>
-      <Header
-        cartTotal={cartTotal}
-        badgePop={badgePop}
-        searchValue={searchInput}
-        activeCategory={activeCategory}
-        onSearchChange={setSearchInput}
-        onSearchClear={handleSearchClear}
-        onCategoryChange={setActiveCategory}
-        onOpenCart={() => setIsCartOpen(true)}
-      />
+      <Navbar cartTotal={cartTotal} onOpenCart={() => setIsCartOpen(true)} />
 
-      <Hero
-        isLoading={isLoading}
-        groups={groups}
-        isEmpty={filtered.length === 0}
+      <LandingHero />
+
+      <FeaturedProducts
+        products={featuredProducts}
         buttonStates={buttonStates}
         onAddToCart={addToCart}
+        onSeeMore={() => setShowAllProducts(!showAllProducts)}
       />
+
+      <AllProducts
+        products={allProducts}
+        buttonStates={buttonStates}
+        onAddToCart={addToCart}
+        isVisible={showAllProducts}
+      />
+
+      <NewsletterSection />
+
+      <SiteFooter />
 
       <Features
         isOpen={isCartOpen}
