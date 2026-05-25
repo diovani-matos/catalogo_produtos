@@ -1,36 +1,113 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌿 Ateliê Terra - Catálogo de Produtos
 
-## Getting Started
+Um e-commerce moderno para artesanato e produtos naturais, desenvolvido com Next.js e React. Apresenta uma experiência de usuário fluida com menu mobile animado, catálogo de produtos responsivo e checkout simulado.
 
-First, run the development server:
+## ✨ Características
+
+- **Design Responsivo**: Layout otimizado para desktop, tablet e mobile
+- **Menu Mobile Animado**: Menu lateral deslizante com animação suave e design arredondado
+- **Hero Section**: Banner de destaque com imagem de fundo e chamada para ação
+- **Catálogo de Produtos**: Grid dinâmico com emojis, preços e badges
+- **Carrinho de Compras**: Drawer lateral com gerenciamento de quantidade
+- **Newsletter**: Formulário de inscrição com validação
+- **Checkout Simulado**: Interface de pagamento interativa
+- **Footer Completo**: Links de navegação e ícones de redes sociais
+
+## 🎨 Design
+
+- **Paleta de Cores**: Verde musgo (moss), pedra (stone) e areia (sand)
+- **Tipografia**: Geist Sans
+- **Componentes**: Construídos com React e CSS puro
+- **Animações**: Transições suaves e efeitos de scroll
+
+## 🚀 Tecnologias
+
+- **Next.js 16** - Framework React com renderização no servidor
+- **React 18** - Biblioteca UI
+- **Tailwind CSS** - Framework CSS utility-first
+- **Lucide React** - Ícones SVG
+- **TypeScript** - Tipagem estática
+
+## 🛠️ Instalação
 
 ```bash
+# Clone o repositório
+git clone https://github.com/diovani-matos/catalogo_produtos.git
+
+# Entre no diretório
+cd catalogo_produtos
+
+# Instale as dependências
+npm install
+
+# Inicie o servidor de desenvolvimento
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abra [http://localhost:3000](http://localhost:3000) no seu navegador.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📁 Estrutura do Projeto
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+catalogo_produtos/
+├── app/
+│   ├── globals.css          # Estilos globais
+│   ├── layout.tsx           # Layout principal
+│   ├── page.tsx             # Página inicial
+│   └── checkout.css         # Estilos do checkout
+├── components/
+│   ├── Navbar.tsx           # Barra de navegação com menu mobile
+│   ├── LandingHero.tsx      # Seção hero
+│   ├── CatalogApp.tsx       # Catálogo de produtos
+│   ├── CounterBadge.tsx     # Badge do carrinho
+│   └── checkout/
+│       └── CheckoutClient.tsx # Interface de checkout
+└── public/                  # Arquivos estáticos
+```
 
-## Learn More
+## 🎯 Funcionalidades Principais
 
-To learn more about Next.js, take a look at the following resources:
+### Menu Mobile
+- Abre lateralmente com animação suave
+- Design arredondado com sombra elevada
+- Backdrop escuro para melhor UX
+- Fecha automaticamente ao clicar em um link
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Carrinho de Compras
+- Adicionar/remover produtos
+- Ajustar quantidade
+- Cálculo automático do total
+- Toast de confirmação
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Produtos
+- Display em grid responsivo
+- Badges de categoria
+- Preços e promoções
+- Emojis como imagens dos produtos
 
-## Deploy on Vercel
+## 📱 Responsividade
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Desktop**: Layout otimizado em 1200px de máximo
+- **Tablet**: Adaptações para 768px
+- **Mobile**: Menu drawer e grid ajustado para pequenas telas
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🚢 Deploy
+
+O projeto está pronto para deploy na [Vercel](https://vercel.com):
+
+```bash
+npm run build
+```
+
+## 📝 Licença
+
+Este projeto é de código aberto e está disponível para fins educacionais e comerciais.
+
+## 👨‍💻 Autor
+
+**Diovani Matos**
+- GitHub: [@diovani-matos](https://github.com/diovani-matos)
+
+---
+
+Desenvolvido com ❤️ para o portfólio
