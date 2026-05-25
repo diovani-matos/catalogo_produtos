@@ -21,7 +21,12 @@ const TOAST_DURATION_MS = 2500;
 
 export default function CatalogApp() {
   const router = useRouter();
-  const [cart, setCart] = useState<CartState>({});
+  const [isHydrated, setIsHydrated] = useState(false);
+  const [cart, setCart] = useState<CartState>(() => {
+    if (typeof window === "undefined") return {};
+    const stored = localStorage.getItem("catalog-cart");
+    return stored ? JSON.parse(stored) : {};
+  });
   const [buttonStates, setButtonStates] = useState<
     Record<number, AddButtonState>
   >({});
@@ -133,6 +138,14 @@ export default function CatalogApp() {
   const allProducts = products;
 
   useEffect(() => {
+    setIsHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("catalog-cart", JSON.stringify(cart));
+  }, [cart]);
+
+  useEffect(() => {
     const reveals = document.querySelectorAll(".reveal");
     const observer = new IntersectionObserver(
       (entries) => {
@@ -163,7 +176,10 @@ export default function CatalogApp() {
 
   return (
     <>
-      <Navbar cartTotal={cartTotal} onOpenCart={() => setIsCartOpen(true)} />
+      <Navbar
+        cartTotal={isHydrated ? cartTotal : 0}
+        onOpenCart={() => setIsCartOpen(true)}
+      />
 
       <LandingHero />
 
@@ -187,8 +203,8 @@ export default function CatalogApp() {
 
       <Features
         isOpen={isCartOpen}
-        items={cartItems}
-        total={cartValue}
+        items={isHydrated ? cartItems : []}
+        total={isHydrated ? cartValue : 0}
         onClose={() => setIsCartOpen(false)}
         onUpdateQty={updateQty}
         onCheckout={handleCheckout}

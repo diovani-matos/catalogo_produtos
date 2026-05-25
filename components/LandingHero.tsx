@@ -1,5 +1,7 @@
 "use client";
 
+import CounterBadge from "@/components/CounterBadge";
+
 export default function LandingHero() {
   return (
     <section className="hero" id="home">
@@ -51,10 +53,7 @@ export default function LandingHero() {
           </button>
         </div>
       </div>
-      <div className="hero-badge">
-        <strong>+1.200</strong>
-        <span>peças vendidas</span>
-      </div>
+      <CounterBadge />
       <div className="hero-scroll">
         <span>ROLAR</span>
         <svg

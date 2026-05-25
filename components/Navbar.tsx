@@ -1,7 +1,7 @@
 "use client";
 
 import { ShoppingCart, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type NavbarProps = {
   cartTotal: number;
@@ -11,8 +11,25 @@ type NavbarProps = {
 export default function Navbar({ cartTotal, onOpenCart }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  useEffect(() => {
+    const navbar = document.getElementById("navbar");
+    const handleScroll = () => {
+      if (navbar) {
+        navbar.classList.toggle("scrolled", window.scrollY > 30);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <>
+      {mobileMenuOpen && (
+        <div
+          className="mobile-menu-backdrop"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
       <nav className="navbar" id="navbar">
         <div className="nav-inner">
           <a href="#" className="nav-logo">
@@ -25,21 +42,21 @@ export default function Navbar({ cartTotal, onOpenCart }: NavbarProps) {
             id="navLinks"
           >
             <li>
-              <a href="#" className="active">
+              <a href="#" className="active" onClick={() => setMobileMenuOpen(false)}>
                 Home
               </a>
             </li>
             <li>
-              <a href="#produtos">Produtos</a>
+              <a href="#destaque" onClick={() => setMobileMenuOpen(false)}>Produtos</a>
             </li>
             <li>
-              <a href="#destaque">Destaques</a>
+              <a href="#destaque" onClick={() => setMobileMenuOpen(false)}>Destaques</a>
             </li>
             <li>
-              <a href="#newsletter">Promoções</a>
+              <a href="#newsletter" onClick={() => setMobileMenuOpen(false)}>Promoções</a>
             </li>
             <li>
-              <a href="#contato">Contato</a>
+              <a href="#contato" onClick={() => setMobileMenuOpen(false)}>Contato</a>
             </li>
           </ul>
 
@@ -85,16 +102,6 @@ export default function Navbar({ cartTotal, onOpenCart }: NavbarProps) {
           </div>
         </div>
       </nav>
-
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.addEventListener('scroll', function() {
-              document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 30);
-            });
-          `,
-        }}
-      />
     </>
   );
 }
