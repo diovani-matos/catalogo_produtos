@@ -8,6 +8,8 @@ export type Product = {
   price: number;
   original?: number;
   emoji: string;
+  image: string;
+  imagePosition?: "top" | "center" | "bottom";
   badge?: ProductBadge;
   inStock: boolean;
 };

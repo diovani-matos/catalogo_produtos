@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 
 export default function NewsletterSection() {
@@ -89,22 +90,58 @@ export default function NewsletterSection() {
           <div className="illus-wrap">
             <div className="illus-grid">
               <div className="illus-card">
-                <div className="illus-emoji">🏺</div>
+                <div style={{ position: "relative", width: "100%", aspectRatio: "3/2", overflow: "hidden", borderRadius: "8px" }}>
+                  <Image
+                    src="/images/vaso-rustico.jpg"
+                    alt="Vaso Rústico"
+                    fill
+                    style={{ objectFit: "cover", objectPosition: "center" }}
+                    sizes="80px"
+                    quality={85}
+                  />
+                </div>
                 <div className="illus-name">Vaso Rústico</div>
                 <div className="illus-price">R$ 74,90</div>
               </div>
               <div className="illus-card">
-                <div className="illus-emoji">🧶</div>
+                <div style={{ position: "relative", width: "100%", aspectRatio: "3/2", overflow: "hidden", borderRadius: "8px" }}>
+                  <Image
+                    src="/images/tapete-boho.jpg"
+                    alt="Tapete Boho"
+                    fill
+                    style={{ objectFit: "cover", objectPosition: "center" }}
+                    sizes="80px"
+                    quality={85}
+                  />
+                </div>
                 <div className="illus-name">Tapete Boho</div>
                 <div className="illus-price">R$ 129,00</div>
               </div>
               <div className="illus-card">
-                <div className="illus-emoji">💜</div>
+                <div style={{ position: "relative", width: "100%", aspectRatio: "3/2", overflow: "hidden", borderRadius: "8px" }}>
+                  <Image
+                    src="/images/vela-lavanda.jpg"
+                    alt="Vela Lavanda"
+                    fill
+                    style={{ objectFit: "cover", objectPosition: "center" }}
+                    sizes="80px"
+                    quality={85}
+                  />
+                </div>
                 <div className="illus-name">Vela Lavanda</div>
                 <div className="illus-price">R$ 42,00</div>
               </div>
               <div className="illus-card">
-                <div className="illus-emoji">🧼</div>
+                <div style={{ position: "relative", width: "100%", aspectRatio: "3/2", overflow: "hidden", borderRadius: "8px" }}>
+                  <Image
+                    src="/images/kit-spa.jpg"
+                    alt="Kit Spa"
+                    fill
+                    style={{ objectFit: "cover", objectPosition: "center" }}
+                    sizes="80px"
+                    quality={85}
+                  />
+                </div>
                 <div className="illus-name">Kit Spa</div>
                 <div className="illus-price">R$ 62,00</div>
               </div>

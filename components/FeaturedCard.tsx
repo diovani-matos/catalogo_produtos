@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Check, Loader2 } from "lucide-react";
 import { formatCurrency } from "@/lib/format";
 import { getBadgeClass } from "@/lib/catalog-utils";
@@ -33,8 +34,15 @@ export default function FeaturedCard({
   return (
     <article className="pcard" aria-label={product.name}>
       <div className="pcard-img">
-        <div className="pcard-emoji" aria-hidden="true">
-          {product.emoji}
+        <div style={{ position: "relative", width: "100%", aspectRatio: "4/3", overflow: "hidden", borderRadius: "8px" }}>
+          <Image
+            src={product.image}
+            alt={product.name}
+            fill
+            style={{ objectFit: "cover", objectPosition: product.imagePosition ?? "center" }}
+            sizes="(max-width: 768px) 100vw, 33vw"
+            quality={85}
+          />
         </div>
         {badge && <span className={`pcard-badge ${badgeClass}`}>{badge}</span>}
       </div>

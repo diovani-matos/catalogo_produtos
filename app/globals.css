@@ -593,7 +593,6 @@ section {
 
 .pcard-img {
   position: relative;
-  padding-top: 90%;
   background: var(--sand-100);
   overflow: hidden;
 }
@@ -902,7 +901,7 @@ section {
 
 .illus-wrap {
   width: 100%;
-  max-width: 420px;
+  max-width: 320px;
   aspect-ratio: 1;
   border-radius: 24px;
   overflow: hidden;
@@ -938,8 +937,8 @@ section {
 .illus-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  padding: 32px;
+  gap: 8px;
+  padding: 16px;
   position: relative;
   z-index: 1;
   width: 100%;
@@ -949,10 +948,10 @@ section {
   background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 14px;
-  padding: 14px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
   backdrop-filter: blur(6px);
 }
 
@@ -1422,7 +1421,6 @@ section {
 .product-card-img {
   position: relative;
   width: 100%;
-  padding-top: 75%;
   background: var(--sand-100);
   overflow: hidden;
 }
