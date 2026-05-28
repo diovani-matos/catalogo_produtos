@@ -67,14 +67,51 @@ body {
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--stone-200);
-  transition: box-shadow 0.3s;
+  background: transparent;
+  backdrop-filter: none;
+  border-bottom: 1px solid transparent;
+  transition: background 0.35s, border-color 0.35s, box-shadow 0.35s, backdrop-filter 0.35s;
 }
 
 .navbar.scrolled {
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--stone-200);
   box-shadow: 0 4px 24px rgba(60, 48, 40, 0.08);
+}
+
+.navbar:not(.scrolled) .nav-logo {
+  color: white;
+}
+
+.navbar:not(.scrolled) .logo-mark {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.navbar:not(.scrolled) .nav-links a {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.navbar:not(.scrolled) .nav-links a:hover {
+  color: white;
+}
+
+.navbar:not(.scrolled) .nav-links a::after {
+  background: white;
+}
+
+.navbar:not(.scrolled) .hamburger {
+  color: white;
+}
+
+.navbar:not(.scrolled) .cart-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.navbar:not(.scrolled) .cart-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
 }
 
 .nav-inner {
@@ -276,7 +313,8 @@ body {
 ══════════════════════════════════════ */
 .hero {
   position: relative;
-  margin-top: 64px;
+  margin-top: 0;
+  padding-top: 64px;
   height: 90vh;
   min-height: 580px;
   max-height: 860px;
@@ -290,13 +328,12 @@ body {
   inset: 0;
   background:
     linear-gradient(
-      135deg,
-      rgba(30, 48, 22, 0.82) 0%,
-      rgba(58, 92, 43, 0.55) 50%,
-      rgba(90, 142, 69, 0.3) 100%
+      to right,
+      rgba(10, 8, 5, 0.65) 0%,
+      rgba(10, 8, 5, 0.35) 45%,
+      rgba(10, 8, 5, 0.05) 100%
     ),
-    url("https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1600&q=80&fit=crop")
-      center/cover no-repeat;
+    url("/images/hero-artesanato.jpg") center/cover no-repeat;
   transform: scale(1.04);
   animation: heroZoom 12s ease-in-out infinite alternate;
 }
@@ -325,9 +362,9 @@ body {
   gap: 8px;
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 50px;
-  color: rgba(255, 255, 255, 0.9);
+  color: #ffffff;
   font-size: 13px;
   font-weight: 500;
   padding: 6px 14px;
@@ -350,20 +387,22 @@ body {
   letter-spacing: -0.02em;
   max-width: 700px;
   margin-bottom: 18px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   animation: fadeUp 0.7s 0.2s both;
 }
 
 .hero h1 em {
-  color: var(--moss-300);
+  color: #C8B89A;
   font-style: normal;
 }
 
 .hero p {
   font-size: clamp(15px, 2vw, 18px);
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.85);
   max-width: 480px;
   line-height: 1.65;
   margin-bottom: 32px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   animation: fadeUp 0.7s 0.3s both;
 }
 
@@ -375,46 +414,46 @@ body {
 }
 
 .btn-primary {
-  background: white;
-  color: var(--moss-800);
+  background: #ffffff;
+  color: #2C2016;
   border: none;
   border-radius: 12px;
   padding: 15px 28px;
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 8px;
   transition:
     transform 0.2s,
-    box-shadow 0.2s;
+    box-shadow 0.2s,
+    background 0.2s;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 .btn-primary:hover {
+  background: rgba(255, 255, 255, 0.9);
   transform: translateY(-2px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .btn-outline {
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(8px);
-  color: white;
-  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  background: transparent;
+  color: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
   border-radius: 12px;
   padding: 15px 28px;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition:
-    background 0.2s,
-    border-color 0.2s;
+  transition: all 0.2s ease;
 }
 
 .btn-outline:hover {
-  background: rgba(255, 255, 255, 0.22);
-  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #ffffff;
+  backdrop-filter: blur(4px);
 }
 
 .hero-scroll {
@@ -448,21 +487,20 @@ body {
   right: 5%;
   bottom: 20%;
   background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(12px);
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  border-radius: 20px;
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
   padding: 18px 24px;
-  color: var(--moss-800);
+  color: #2C2016;
   text-align: center;
   animation: fadeUp 0.7s 0.6s both;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
 .hero-badge strong {
   display: block;
   font-size: 32px;
   font-weight: 800;
-  color: var(--moss-700);
+  color: #2C2016;
   line-height: 1;
   margin-bottom: 4px;
 }
@@ -470,7 +508,7 @@ body {
 .hero-badge span {
   font-size: 13px;
   font-weight: 600;
-  color: var(--stone-600);
+  color: #6B5C4E;
   letter-spacing: 0.5px;
 }
 

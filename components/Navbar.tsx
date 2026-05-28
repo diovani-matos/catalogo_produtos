@@ -10,15 +10,12 @@ type NavbarProps = {
 
 export default function Navbar({ cartTotal, onOpenCart }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [cartHovered, setCartHovered] = useState(false);
 
   useEffect(() => {
-    const navbar = document.getElementById("navbar");
-    const handleScroll = () => {
-      if (navbar) {
-        navbar.classList.toggle("scrolled", window.scrollY > 30);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => setScrolled(window.scrollY > 80);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -30,7 +27,15 @@ export default function Navbar({ cartTotal, onOpenCart }: NavbarProps) {
           onClick={() => setMobileMenuOpen(false)}
         />
       )}
-      <nav className="navbar" id="navbar">
+      <nav
+        className={`navbar${scrolled ? " scrolled" : ""}`}
+        id="navbar"
+        style={{
+          background: scrolled ? "rgba(255, 255, 255, 0.96)" : "transparent",
+          boxShadow: scrolled ? "0 1px 12px rgba(0, 0, 0, 0.08)" : "none",
+          transition: "background 0.3s ease, box-shadow 0.3s ease",
+        }}
+      >
         <div className="nav-inner">
           <a href="#" className="nav-logo">
             <div className="logo-mark">🌿</div>
@@ -66,6 +71,19 @@ export default function Navbar({ cartTotal, onOpenCart }: NavbarProps) {
               id="cartBtn"
               aria-label="Carrinho de compras"
               onClick={onOpenCart}
+              onMouseEnter={() => !scrolled && setCartHovered(true)}
+              onMouseLeave={() => setCartHovered(false)}
+              style={!scrolled ? {
+                background: cartHovered
+                  ? "rgba(255, 255, 255, 0.25)"
+                  : "rgba(255, 255, 255, 0.15)",
+                border: "1.5px solid rgba(255, 255, 255, 0.5)",
+                color: "#ffffff",
+                backdropFilter: "blur(8px)",
+                borderRadius: "8px",
+                padding: "0.5rem 1rem",
+                transition: "all 0.2s ease",
+              } : undefined}
             >
               <svg
                 width="16"
