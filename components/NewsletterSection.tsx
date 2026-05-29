@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { Gift, Zap, BellOff } from "lucide-react";
 
 export default function NewsletterSection() {
   const [email, setEmail] = useState("");
@@ -35,15 +36,21 @@ export default function NewsletterSection() {
           </p>
           <div className="newsletter-perks">
             <div className="perk">
-              <div className="perk-dot">🎁</div>
+              <div className="perk-dot">
+                <Gift size={16} />
+              </div>
               Desconto de boas-vindas de 10% na primeira compra
             </div>
             <div className="perk">
-              <div className="perk-dot">⚡</div>
+              <div className="perk-dot">
+                <Zap size={16} />
+              </div>
               Acesso antecipado a novos produtos
             </div>
             <div className="perk">
-              <div className="perk-dot">🔕</div>
+              <div className="perk-dot">
+                <BellOff size={16} />
+              </div>
               Sem spam — cancele quando quiser
             </div>
           </div>

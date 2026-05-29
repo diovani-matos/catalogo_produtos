@@ -19,7 +19,7 @@ export default function FeaturedProducts({
   return (
     <section
       id="destaque"
-      style={{ background: "white", padding: "80px 24px" }}
+      style={{ background: "var(--stone-50)", padding: "80px 24px" }}
     >
       <div className="section-inner">
         <div className="featured-header reveal">

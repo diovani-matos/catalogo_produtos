@@ -1,5 +1,7 @@
 "use client";
 
+import { Mail, Phone, MapPin, Clock } from "lucide-react";
+
 export default function SiteFooter() {
   return (
     <footer id="contato" className="site-footer">
@@ -96,16 +98,28 @@ export default function SiteFooter() {
           <h4>Contato</h4>
           <ul>
             <li>
-              <a href="#">📧 ola@atelieterra.com</a>
+              <a href="#" style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <Mail size={14} style={{ color: "var(--stone-400)", flexShrink: 0 }} />
+                ola@atelieterra.com
+              </a>
             </li>
             <li>
-              <a href="#">📱 (47) 99999-0000</a>
+              <a href="#" style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <Phone size={14} style={{ color: "var(--stone-400)", flexShrink: 0 }} />
+                (47) 99999-0000
+              </a>
             </li>
             <li>
-              <a href="#">📍 Itajaí, SC</a>
+              <a href="#" style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <MapPin size={14} style={{ color: "var(--stone-400)", flexShrink: 0 }} />
+                Itajaí, SC
+              </a>
             </li>
             <li>
-              <a href="#">⏰ Seg–Sex, 9h–18h</a>
+              <a href="#" style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <Clock size={14} style={{ color: "var(--stone-400)", flexShrink: 0 }} />
+                Seg–Sex, 9h–18h
+              </a>
             </li>
           </ul>
         </div>
