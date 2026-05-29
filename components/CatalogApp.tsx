@@ -127,6 +127,20 @@ export default function CatalogApp() {
     [updateCartBadge],
   );
 
+  const removeItem = useCallback(
+    (id: number) => {
+      const name = cart[id]?.name;
+      setCart((prev) => {
+        const next = { ...prev };
+        delete next[id];
+        return next;
+      });
+      updateCartBadge();
+      if (name) showToast(`🗑️ ${name} removido do carrinho`);
+    },
+    [cart, updateCartBadge, showToast],
+  );
+
   const handleCheckout = () => {
     if (cartItems.length === 0) return;
     saveCheckoutCart(cartItems, cartValue);
@@ -207,6 +221,7 @@ export default function CatalogApp() {
         total={isHydrated ? cartValue : 0}
         onClose={() => setIsCartOpen(false)}
         onUpdateQty={updateQty}
+        onRemoveItem={removeItem}
         onCheckout={handleCheckout}
       />
 

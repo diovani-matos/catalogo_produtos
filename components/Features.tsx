@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { ShoppingCart, X } from "lucide-react";
 import { formatCurrency } from "@/lib/format";
 import type { CartItem } from "@/lib/types";
@@ -10,6 +11,7 @@ type FeaturesProps = {
   total: number;
   onClose: () => void;
   onUpdateQty: (id: number, action: "plus" | "minus") => void;
+  onRemoveItem: (id: number) => void;
   onCheckout: () => void;
 };
 
@@ -19,6 +21,7 @@ export default function Features({
   total,
   onClose,
   onUpdateQty,
+  onRemoveItem,
   onCheckout,
 }: FeaturesProps) {
   return (
@@ -60,34 +63,52 @@ export default function Features({
           ) : (
             items.map((item) => (
               <div key={item.id} className="cart-item">
-                <div className="cart-item-emoji" aria-hidden="true">
-                  {item.emoji}
+                <div className="cart-item-img">
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    width={52}
+                    height={52}
+                    style={{ objectFit: "cover", borderRadius: "10px" }}
+                  />
                 </div>
-                <div className="cart-item-info">
-                  <div className="cart-item-name">{item.name}</div>
-                  <div className="cart-item-price">
-                    {formatCurrency(item.price)} × {item.qty} ={" "}
-                    {formatCurrency(item.price * item.qty)}
+                <div className="cart-item-main">
+                  <div className="cart-item-top">
+                    <div className="cart-item-info">
+                      <div className="cart-item-name">{item.name}</div>
+                      <div className="cart-item-price">
+                        {formatCurrency(item.price)} × {item.qty} ={" "}
+                        {formatCurrency(item.price * item.qty)}
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      className="cart-item-remove"
+                      aria-label={`Remover ${item.name}`}
+                      onClick={() => onRemoveItem(item.id)}
+                    >
+                      <X size={14} />
+                    </button>
                   </div>
-                </div>
-                <div className="qty-ctrl">
-                  <button
-                    type="button"
-                    className="qty-btn"
-                    aria-label={`Diminuir quantidade de ${item.name}`}
-                    onClick={() => onUpdateQty(item.id, "minus")}
-                  >
-                    −
-                  </button>
-                  <span className="qty-num">{item.qty}</span>
-                  <button
-                    type="button"
-                    className="qty-btn"
-                    aria-label={`Aumentar quantidade de ${item.name}`}
-                    onClick={() => onUpdateQty(item.id, "plus")}
-                  >
-                    +
-                  </button>
+                  <div className="qty-ctrl">
+                    <button
+                      type="button"
+                      className="qty-btn"
+                      aria-label={`Diminuir quantidade de ${item.name}`}
+                      onClick={() => onUpdateQty(item.id, "minus")}
+                    >
+                      −
+                    </button>
+                    <span className="qty-num">{item.qty}</span>
+                    <button
+                      type="button"
+                      className="qty-btn"
+                      aria-label={`Aumentar quantidade de ${item.name}`}
+                      onClick={() => onUpdateQty(item.id, "plus")}
+                    >
+                      +
+                    </button>
+                  </div>
                 </div>
               </div>
             ))
