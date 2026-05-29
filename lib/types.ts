@@ -9,7 +9,7 @@ export type Product = {
   original?: number;
   emoji: string;
   image: string;
-  imagePosition?: "top" | "center" | "bottom";
+  imagePosition?: string;
   badge?: ProductBadge;
   inStock: boolean;
 };

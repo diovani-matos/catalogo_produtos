@@ -173,6 +173,7 @@ export const products: Product[] = [
     price: 138,
     emoji: "🧂",
     image: "/images/porta-temperos.jpg",
+    imagePosition: "center",
     inStock: true,
   },
   {
@@ -183,6 +184,7 @@ export const products: Product[] = [
     price: 52,
     emoji: "🖼️",
     image: "/images/porta-retrato.jpg",
+    imagePosition: "30% center",
     inStock: true,
   },
   {
